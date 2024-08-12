@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gympal/common/Color.dart';
+import 'package:gympal/login/what_your_goal_view.dart';
 import '../common_widget/round_button.dart';
 import '../common_widget/round_textfield.dart';
 
@@ -139,7 +140,7 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const CompleteProfileView(),
+                                    builder: (context) => WhatYourGoalView(),
                                   ),
                                 );
                               },
