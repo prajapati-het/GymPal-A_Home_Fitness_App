@@ -15,11 +15,9 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   bool isCheck = false;
-
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: AppColor.white,
       body: SingleChildScrollView(
@@ -30,16 +28,15 @@ class _SignupViewState extends State<SignupView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Hey There",
+                  "Hey there,",
                   style: TextStyle(color: AppColor.gray, fontSize: 16),
                 ),
                 Text(
                   "Create an Account",
                   style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  ),
+                      color: AppColor.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
                   height: media.width * 0.05,
@@ -71,22 +68,21 @@ class _SignupViewState extends State<SignupView> {
                   icon: "assets/img/lock.png",
                   obscureText: true,
                   rightIcon: TextButton(
-                    onPressed: () {},
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 20,
-                      height: 20,
-                      child: Image.asset(
-                        "assets/img/show_password.png",
-                        width: 20,
-                        height: 20,
-                        fit: BoxFit.contain,
-                        color: AppColor.gray,
-                      ),
-                    ),
-                  ),
+                      onPressed: () {},
+                      child: Container(
+                          alignment: Alignment.center,
+                          width: 20,
+                          height: 20,
+                          child: Image.asset(
+                            "assets/img/show_password.png",
+                            width: 20,
+                            height: 20,
+                            fit: BoxFit.contain,
+                            color: AppColor.gray,
+                          ))),
                 ),
                 Row(
+                  // crossAxisAlignment: CrossAxisAlignment.,
                   children: [
                     IconButton(
                       onPressed: () {
@@ -97,17 +93,19 @@ class _SignupViewState extends State<SignupView> {
                       icon: Icon(
                         isCheck
                             ? Icons.check_box_outlined
-                            : Icons.check_box_outline_blank,
+                            : Icons.check_box_outline_blank_outlined,
                         color: AppColor.gray,
-                        size: 20.0,
+                        size: 20,
                       ),
                     ),
-                    Expanded(
-                      child: Text(
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child:  Text(
                         "By continuing you accept our Privacy Policy and\nTerm of Use",
                         style: TextStyle(color: AppColor.gray, fontSize: 10),
                       ),
-                    ),
+
+                    )
                   ],
                 ),
                 SizedBox(
