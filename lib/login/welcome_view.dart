@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gympal/common/Color.dart';
+import 'package:gympal/main_tab/main_tab_view.dart';
 
 import '../common_widget/round_button.dart';
 
@@ -57,7 +58,7 @@ class _WelcomeViewState extends State<WelcomeView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const WelcomeView()));
+                            builder: (context) => const MainTabView()));
                   }),
 
             ],
