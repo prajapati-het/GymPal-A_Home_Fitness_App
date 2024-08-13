@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gympal/common/Color.dart';
 
+import '../common_widget/tab_button.dart';
+
 class MainTabView extends StatefulWidget {
   const MainTabView({super.key});
 
@@ -9,37 +11,39 @@ class MainTabView extends StatefulWidget {
 }
 
 class _MainTabViewState extends State<MainTabView> {
+
+  int selectTab = 0;
+  //Widget currentTab = const HomeView();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       bottomNavigationBar: BottomAppBar(
         child: SafeArea(
-          child: Container(
-            height: kToolbarHeight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {
-                    // Add your onTap functionality here
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Image.asset(
-                      "assets/img/home_tab_select.png",
-                      width: 25.0,
-                      height: 25.0,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TabButton(
+                        icon: "assets/img/activity_tab.png",
+                        selectIcon: "assets/img/activity_tab_select.png",
+                        isActive: selectTab == 1,
+                        onTap: () {
+                          selectTab = 0;
+                          if (mounted) {
+                            setState(() {});
+                          }
+                        }),
+                  ],
                 ),
-                // Add more widgets here if needed
-              ],
-
-            ),
+              ),
+            ],
           ),
-
         ),
       ),
     );
