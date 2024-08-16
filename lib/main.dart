@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gympal/view/on_boarding/on_boarding_view.dart';
-import 'package:gympal/view/on_boarding/started_view.dart';
+import 'package:gympal/view/login/on_boarding_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,21 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'GymPal',
       debugShowCheckedModeBanner: false,
-      home: StartedView(),
+      theme: ThemeData(
+        fontFamily: "Poppins"
+      ),
+      home: OnBoardingView()
     );
-  }
-}
-
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  Widget build(BuildContext context) {
-    return OnBoardingView();
   }
 }

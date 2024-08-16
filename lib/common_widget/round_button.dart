@@ -2,73 +2,42 @@ import 'package:flutter/material.dart';
 
 import '../common/Color.dart';
 
-enum RoundButtonType { bgGradient, bgSGradient , textGradient }
+enum RoundButtonType { primary, primaryText }
 
 class RoundButton extends StatelessWidget {
   final String title;
-  final RoundButtonType type;
   final VoidCallback onPressed;
   final double fontSize;
-  final double elevation;
   final FontWeight fontWeight;
+  final RoundButtonType type;
 
   const RoundButton(
       {super.key,
-        required this.title,
-        this.type = RoundButtonType.bgGradient,
-        this.fontSize = 16,
-        this.elevation = 1,
-        this.fontWeight = FontWeight.w700,
-        required this.onPressed});
+      required this.title,
+      required this.onPressed,
+      this.fontSize = 20,
+      this.fontWeight = FontWeight.w700,
+      this.type = RoundButtonType.primary});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: type == RoundButtonType.bgSGradient ? AppColor.secondaryG :  AppColor.primaryG,
-          ),
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: type == RoundButtonType.bgGradient ||  type == RoundButtonType.bgSGradient
-              ? const [
-            BoxShadow(
-                color: Colors.black26,
-                blurRadius: 0.5,
-                offset: Offset(0, 0.5))
-          ]
-              : null),
-      child: MaterialButton(
-        onPressed: onPressed,
-        height: 50,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-        textColor: AppColor.primaryColor1,
-        minWidth: double.maxFinite,
-        elevation: type == RoundButtonType.bgGradient ||  type == RoundButtonType.bgSGradient ? 0 : elevation,
-        color: type == RoundButtonType.bgGradient ||  type == RoundButtonType.bgSGradient
-            ? Colors.transparent
-            : AppColor.white,
-        child: type == RoundButtonType.bgGradient ||  type == RoundButtonType.bgSGradient
-            ? Text(title,
-            style: TextStyle(
-                color: AppColor.white,
-                fontSize: fontSize,
-                fontWeight: fontWeight))
-            : ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return LinearGradient(
-                colors: AppColor.primaryG,
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight)
-                .createShader(
-                Rect.fromLTRB(0, 0, bounds.width, bounds.height));
-          },
-          child: Text(title,
-              style: TextStyle(
-                  color:  AppColor.primaryColor1,
-                  fontSize: fontSize,
-                  fontWeight: fontWeight)),
-        ),
+    return MaterialButton(
+      onPressed: onPressed,
+      textColor:
+          type == RoundButtonType.primary ? AppColor.white : AppColor.primary,
+      color:
+          type == RoundButtonType.primary ? AppColor.primary : AppColor.white,
+      height: 50,
+      minWidth: double.maxFinite,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      child: Text(
+        title,
+        style: TextStyle(
+            color: type == RoundButtonType.primary
+                ? AppColor.white
+                : AppColor.primary,
+            fontSize: fontSize,
+            fontWeight: fontWeight),
       ),
     );
   }
