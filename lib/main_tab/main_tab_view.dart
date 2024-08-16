@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../common/Color.dart';
 import '../common_widget/tab_button.dart';
+import '../view/home/home_view.dart';
 
 class MainTabView extends StatefulWidget {
   const MainTabView({super.key});
@@ -13,13 +14,13 @@ class MainTabView extends StatefulWidget {
 class _MainTabViewState extends State<MainTabView> {
   int selectTab = 0;
   final PageStorageBucket pageBucket = PageStorageBucket();
-  //Widget currentTab = const HomeView();
+  Widget currentTab = const HomeView();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.white,
-        //body: PageStorage(bucket: pageBucket, child: currentTab),
+        body: PageStorage(bucket: pageBucket, child: currentTab),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: SizedBox(
           width: 70,
@@ -63,7 +64,7 @@ class _MainTabViewState extends State<MainTabView> {
                     isActive: selectTab == 0,
                     onTap: () {
                       selectTab = 0;
-                      //currentTab = const HomeView();
+                      currentTab = const HomeView();
                       if (mounted) {
                         setState(() {});
                       }
