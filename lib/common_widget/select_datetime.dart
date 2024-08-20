@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gympal/common/extension.dart';
 import '../common/Color.dart';
@@ -6,64 +5,61 @@ import '../common/Color.dart';
 class SelectDateTime extends StatelessWidget {
   final DateTime? selectDate;
   final String title;
-  final Function( DateTime) didChange;
-  const SelectDateTime({super.key,required this.title, required this.didChange, this.selectDate});
+  final Function(DateTime) didChange;
+
+  const SelectDateTime({
+    super.key,
+    required this.title,
+    required this.didChange,
+    this.selectDate,
+  });
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
 
     return InkWell(
-      onTap: () {
-        showCupertinoModalPopup(
-            context: context,
-            builder: (context) {
-              return Container(
-                height: 250,
-                color: AppColor.white,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              "Done",
-                              style: TextStyle(
-                                  color: AppColor.secondaryText,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700),
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 200,
-                      child: CupertinoDatePicker(
-                          initialDateTime: selectDate,
-                          dateOrder: DatePickerDateOrder.ymd,
-                          mode:  CupertinoDatePickerMode.date,
-                          onDateTimeChanged: didChange),
-                    )
-                  ],
+      onTap: () async {
+        DateTime? pickedDate = await showDatePicker(
+          context: context,
+          initialDate: selectDate ?? DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime(2100),
+          builder: (context, child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(
+                  primary: AppColor.primary, // Header background color
+                  onPrimary: Colors.white, // Header text color
+                  onSurface: AppColor.secondaryText, // Body text color
                 ),
-              );
-            });
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColor.primary, // Button text color
+                  ),
+                ),
+              ),
+              child: child!,
+            );
+          },
+        );
+
+        if (pickedDate != null) {
+          didChange(pickedDate);
+        }
       },
       child: Padding(
-        padding:
-        EdgeInsets.symmetric(vertical: media.width * 0.05),
+        padding: EdgeInsets.symmetric(vertical: media.width * 0.05),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               title,
               style: TextStyle(
-                  color: AppColor.secondaryText,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700),
+                color: AppColor.secondaryText,
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(
               height: 8,
@@ -73,7 +69,9 @@ class SelectDateTime extends StatelessWidget {
                   ? "Select Date"
                   : selectDate!.stringFormat(format: "MMM dd, yyyy"),
               style: TextStyle(
-                  color: AppColor.primary, fontSize: 18),
+                color: AppColor.primary,
+                fontSize: 18,
+              ),
             ),
           ],
         ),

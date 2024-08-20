@@ -197,26 +197,30 @@ class _HomeViewState extends State<HomeView> {
                               isLast: true,
                               onPressed: () {}),
                           const Spacer(),
-                          SizedBox(
-                            width: 150,
-                            height: 40,
-                            child: RoundButton(
-                                title: "Start",
-                                onPressed: () {
-                                  if (index % 2 == 0) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                            WorkoutView()));
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                            WorkoutView2()));
-                                  }
-                                }),
+                          Expanded(
+                            child: SafeArea(
+                              child: SizedBox(
+                                width: 150,
+                                height: 40,
+                                child: RoundButton(
+                                    title: "Start",
+                                    onPressed: () {
+                                      if (index % 2 == 0) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                WorkoutView()));
+                                      } else {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                WorkoutView2()));
+                                      }
+                                    }),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 20,

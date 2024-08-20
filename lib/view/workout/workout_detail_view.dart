@@ -25,27 +25,33 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
     },
   ];
 
-  List responseArr = [{
-    "name":"Mikhail Eduardovich",
-    "time":"09 days ago",
-    "image":"assets/img/u2.png",
-    "message":"Lorem ipsum dolor sit amet, conse ctetur adipiscing elit,"
-  }, {
-    "name":"Mikhail Eduardovich",
-    "time":"11 days ago",
-    "image":"assets/img/u1.png",
-    "message":"Lorem ipsum dolor sit amet, conse ctetur adipiscing elit,"
-  },{
-    "name":"Mikhail Eduardovich",
-    "time":"12 days ago",
-    "image":"assets/img/u2.png",
-    "message":"Lorem ipsum dolor sit amet, conse ctetur adipiscing elit,"
-  },{
-    "name":"Mikhail Eduardovich",
-    "time":"13 days ago",
-    "image":"assets/img/u1.png",
-    "message":"Lorem ipsum dolor sit amet, conse ctetur adipiscing elit,"
-  }];
+  List responseArr = [
+    {
+      "name": "Rahul Sharma",
+      "time": "2 days ago",
+      "image": "assets/img/u2.png",
+      "message": "Namaste! I am really enjoying this app. The workout plans are amazing!"
+    },
+    {
+      "name": "Sneha Patel",
+      "time": "5 days ago",
+      "image": "assets/img/u1.png",
+      "message": "Great experience so far. The meal plans are super helpful."
+    },
+    {
+      "name": "Amitabh Verma",
+      "time": "7 days ago",
+      "image": "assets/img/u2.png",
+      "message": "I love how easy it is to track my progress with this app."
+    },
+    {
+      "name": "Pooja Iyer",
+      "time": "10 days ago",
+      "image": "assets/img/u1.png",
+      "message": "The variety of exercises is impressive. It keeps me motivated!"
+    }
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +102,7 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
               child: Row(
                 children: [
 
-                  IgnorePointer(
-                    ignoring: true,
-                    child: RatingBar.builder(
+                  RatingBar.builder(
                       initialRating: 4,
                       minRating: 1,
                       direction: Axis.horizontal,
@@ -114,7 +118,7 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
                         print(rating);
                       },
                     ),
-                  ),
+
 
                   const Spacer(),
                   IconButton(

@@ -6,7 +6,7 @@ class MenuCell extends StatelessWidget {
   final Map mObj;
   final VoidCallback onPressed;
 
-  const MenuCell({super.key, required this.mObj, required this.onPressed });
+  const MenuCell({super.key, required this.mObj, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -18,27 +18,26 @@ class MenuCell extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             boxShadow: const [
               BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(0, 2)
-              ),
-            ]
-        ),
+                  color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+            ]),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
-            Image.asset( mObj["image"].toString() , width: 35, height: 35, fit: BoxFit.contain,),
-
-            const SizedBox(height: 10,),
-
+            Image.asset(
+              mObj["image"].toString(),
+              width: 35,
+              height: 35,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             Text(mObj["name"],
                 style: TextStyle(
                     fontSize: 14,
                     color: AppColor.secondaryText,
                     fontWeight: FontWeight.w700))
-
           ],
         ),
       ),
