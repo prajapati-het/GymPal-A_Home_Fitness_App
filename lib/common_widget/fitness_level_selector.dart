@@ -8,7 +8,12 @@ class FitnessLevelSelector extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isSelect;
 
-  const FitnessLevelSelector({super.key, required this.title, required this.subtitle, required this.isSelect, required this.onPressed });
+  const FitnessLevelSelector(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.isSelect,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
