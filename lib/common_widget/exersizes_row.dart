@@ -10,12 +10,12 @@ class ExercisesRow extends StatelessWidget {
   final VoidCallback onPressed;
   const ExercisesRow(
       {super.key,
-        required this.number,
-        required this.title,
-        required this.time,
-        this.isActive = false,
-        this.isLast = false,
-        required this.onPressed});
+      required this.number,
+      required this.title,
+      required this.time,
+      this.isActive = false,
+      this.isLast = false,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +45,17 @@ class ExercisesRow extends StatelessWidget {
                 alignment: Alignment.center,
                 child: isLast
                     ? Image.asset(
-                  "assets/img/star.png",
-                  width: 15,
-                  height: 15,
-                )
+                        "assets/img/star.png",
+                        width: 15,
+                        height: 15,
+                      )
                     : Text(
-                  number,
-                  style: TextStyle(
-                      color: AppColor.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700),
-                ),
+                        number,
+                        style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      ),
               ),
             ),
             Expanded(

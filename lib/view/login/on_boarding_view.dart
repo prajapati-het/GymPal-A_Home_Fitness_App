@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gympal/view/login/step1_view.dart';
+import 'package:gympal/view/login/login_view.dart';
 import '../../common/Color.dart';
 import '../../common_widget/round_button.dart';
 
@@ -126,7 +126,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Step1View()),
+                            builder: (context) => const LogIn()), //Step1View()),
                         (route) => false);
                   },
                 ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../common/Color.dart';
 
 class MenuCell extends StatelessWidget {

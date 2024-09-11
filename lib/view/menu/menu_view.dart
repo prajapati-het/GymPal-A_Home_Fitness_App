@@ -2,11 +2,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gympal/view/menu/yoga_view.dart';
-
 import '../../common/Color.dart';
 import '../../common_widget/menu_cell.dart';
 import '../../common_widget/plan_row.dart';
+import '../exercise/exercise_view_2.dart';
 import '../home_view/home_view.dart';
+import '../meal_plan/meal_plan_view_dart.dart';
+import '../schedule/schedule_view.dart';
+import '../weight/weight_view.dart';
 
 class MenuView extends StatefulWidget {
   const MenuView({super.key});
@@ -268,7 +271,7 @@ class _MenuViewState extends State<MenuView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text("Code For Any",
+                              Text("GymPal",
                                   style: TextStyle(
                                       fontSize: 20,
                                       color: AppColor.white,
@@ -313,25 +316,25 @@ class _MenuViewState extends State<MenuView> {
                             builder: (context) => const HomeView()));
                     break;
                   case "2":
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const WeightView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WeightView()));
                     break;
                   case "3":
                     Scaffold.of(context).openDrawer();
                     break;
                   case "5":
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const MealPlanView2()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MealPlanView2()));
                     break;
                   case "6":
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const ScheduleView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ScheduleView()));
                     break;
                   case "7":
                     // Navigator.push(
@@ -340,10 +343,10 @@ class _MenuViewState extends State<MenuView> {
                     //         builder: (context) => const RunningView()));
                     break;
                   case "8":
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const ExerciseView2()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ExerciseView2()));
                     break;
                   case "9":
                     // Navigator.push(

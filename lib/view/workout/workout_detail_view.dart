@@ -30,7 +30,8 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
       "name": "Rahul Sharma",
       "time": "2 days ago",
       "image": "assets/img/u2.png",
-      "message": "Namaste! I am really enjoying this app. The workout plans are amazing!"
+      "message":
+          "Namaste! I am really enjoying this app. The workout plans are amazing!"
     },
     {
       "name": "Sneha Patel",
@@ -48,10 +49,10 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
       "name": "Pooja Iyer",
       "time": "10 days ago",
       "image": "assets/img/u1.png",
-      "message": "The variety of exercises is impressive. It keeps me motivated!"
+      "message":
+          "The variety of exercises is impressive. It keeps me motivated!"
     }
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -101,25 +102,22 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-
                   RatingBar.builder(
-                      initialRating: 4,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemSize: 25,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: AppColor.primary,
-                      ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
-                      },
+                    initialRating: 4,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: 25,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: AppColor.primary,
                     ),
-
-
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                    },
+                  ),
                   const Spacer(),
                   IconButton(
                       onPressed: () {},
@@ -208,12 +206,14 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
             ),
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               shrinkWrap: true,
               itemCount: responseArr.length,
               itemBuilder: ((context, index) {
                 var rObj = responseArr[index] as Map? ?? {};
-                return ResponsesRow(rObj: rObj,);
+                return ResponsesRow(
+                  rObj: rObj,
+                );
               }),
             )
           ],
@@ -249,7 +249,7 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
               InkWell(
                 onTap: () {},
                 child:
-                Image.asset("assets/img/more.png", width: 25, height: 25),
+                    Image.asset("assets/img/more.png", width: 25, height: 25),
               ),
             ],
           ),

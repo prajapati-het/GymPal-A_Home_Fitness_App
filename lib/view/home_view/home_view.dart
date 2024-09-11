@@ -1,12 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import '../../common/Color.dart';
 import '../../common_widget/exersizes_row.dart';
 import '../../common_widget/round_button.dart';
 import '../workout/workout_view.dart';
 import '../workout/workout_view_2.dart';
-
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -210,13 +208,13 @@ class _HomeViewState extends State<HomeView> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                WorkoutView()));
+                                                    WorkoutView()));
                                       } else {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                WorkoutView2()));
+                                                    WorkoutView2()));
                                       }
                                     }),
                               ),

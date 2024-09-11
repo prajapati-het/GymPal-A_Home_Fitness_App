@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gympal/view/workout/workout_detail_view.dart';
-
 import '../../common/Color.dart';
 import '../../common_widget/round_button.dart';
 
@@ -73,7 +72,8 @@ class _WorkoutViewState extends State<WorkoutView> {
               margin: const EdgeInsets.symmetric(vertical: 10),
               height: media.width * 0.5,
               decoration: BoxDecoration(
-                  color: AppColor.gray, borderRadius: BorderRadius.circular(10)),
+                  color: AppColor.gray,
+                  borderRadius: BorderRadius.circular(10)),
               clipBehavior: Clip.antiAlias,
               child: Stack(
                 children: [
@@ -135,7 +135,7 @@ class _WorkoutViewState extends State<WorkoutView> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                            const WorkoutDetailView()));
+                                                const WorkoutDetailView()));
                                   },
                                 )),
                           ],
@@ -177,7 +177,7 @@ class _WorkoutViewState extends State<WorkoutView> {
               InkWell(
                 onTap: () {},
                 child:
-                Image.asset("assets/img/more.png", width: 25, height: 25),
+                    Image.asset("assets/img/more.png", width: 25, height: 25),
               ),
             ],
           ),

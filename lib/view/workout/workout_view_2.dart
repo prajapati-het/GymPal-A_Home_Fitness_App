@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gympal/view/workout/workout_detail_view.dart';
-
 import '../../common/Color.dart';
 
 class WorkoutView2 extends StatefulWidget {

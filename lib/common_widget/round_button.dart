@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../common/Color.dart';
 
 enum RoundButtonType { primary, primaryText }

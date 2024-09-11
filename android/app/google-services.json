@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "117394719485",
+    "project_id": "gympal-3420f",
+    "storage_bucket": "gympal-3420f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117394719485:android:40f90d83fdf07275907494",
+        "android_client_info": {
+          "package_name": "com.example.gympal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxR45Lq16QVm2ZnlU746VtH8DLb_JaJ38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
