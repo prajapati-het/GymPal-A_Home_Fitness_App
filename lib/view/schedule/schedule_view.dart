@@ -14,8 +14,8 @@ class _ScheduleViewState extends State<ScheduleView> {
   DateTime nowTime = DateTime.now();
   DateTime targetDate = DateTime.now();
   List dateArr = [
-    DateTime(2023, 7, 2),
-    DateTime(2023, 7, 14),
+    DateTime(2024, 9, 2),
+    DateTime(2024, 9, 14),
   ];
   List notArr = [
     {

@@ -50,7 +50,7 @@ class _SignUpState extends State<SignUp> {
         await SharedPreferenceHelper().saveUserEmail(mailcontroller.text);
         await SharedPreferenceHelper().saveUserId(Id);
 
-        if (mounted) { // Check if widget is still mounted
+        if (mounted) {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MenuView()));
         }
