@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:gympal/services/shared_pref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -75,51 +76,43 @@ class DatabaseMethods {
     try {
       if (mail == null) return null;
 
-      // Query Firestore to find the user document with the matching email
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           .where('email', isEqualTo: mail)
           .limit(1)
           .get();
 
-      print("Query :  ${querySnapshot.docs.first}");
-
-      // Check if any documents match the query
       if (querySnapshot.docs.isNotEmpty) {
         var doc = querySnapshot.docs.first;
         String userId = doc.id;
         String userName = doc.get('name');
 
-        // Return a map containing both the user ID and name
         return {'id': userId, 'name': userName};
       } else {
-        // No user found with the provided email
-        print('No user found with email: $mail');
+
+        debugPrint('No user found with email: $mail');
         return null;
       }
     } catch (e) {
-      print('Error getting user info: $e');
+      debugPrint('Error getting user info: $e');
       return null;
     }
   }
+
 
   Future<String?> getUserNameFromMail(String? mail) async {
     try {
       if (mail == null) return null;
 
-      // Query Firestore to find the user document with the matching email
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           .where('email', isEqualTo: mail)
           .limit(1)
           .get();
 
-      // Check if any documents match the query
       if (querySnapshot.docs.isNotEmpty) {
-        // Extract the 'name' field from the document
         return querySnapshot.docs.first.get('name');
       } else {
-        // No user found with the provided email
         print('No user found with email: $mail');
         return null;
       }

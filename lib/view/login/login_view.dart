@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gympal/view/login/signup.dart';
+import 'package:gympal/view/login/step1_view.dart';
 import 'package:gympal/view/menu/menu_view.dart';
 import '../../services/database.dart';
 import '../../services/shared_pref.dart';
@@ -16,39 +17,43 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   String email = "", password = "";
-  String? id,name;
+  String? id, name;
 
   final _formkey = GlobalKey<FormState>();
 
   TextEditingController useremailcontroller = TextEditingController();
   TextEditingController userpasswordcontroller = TextEditingController();
 
+  bool _obscureText = true;
+
   userLogin() async {
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email, password: password);
 
       await SharedPreferenceHelper().saveUserEmail(useremailcontroller.text);
 
       Map<String, String>? info = await DatabaseMethods().getUserInfoFromMail(email);
+
       if (info != null) {
+
         String? id = info['id'];
         String? name = info['name'];
 
-        // Do something with id and name
+
         print('User ID: $id');
         print('User Name: $name');
+
+        print("ID -> $id    Name -> $name");
       } else {
-        // Handle the case where the user is not found
+
         print('User not found');
       }
-
-      print("ID -> $id    Name -> $name");
 
       print(useremailcontroller.text);
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MenuView()));
+          context, MaterialPageRoute(builder: (context) => Step1View()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -81,14 +86,11 @@ class _LogInState extends State<LogIn> {
                       gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFFff5c30),
-                            Color(0xFFe74b1a)
-                          ])),
+                          colors: [Color(0xFFff5c30), Color(0xFFe74b1a)])),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height / 3),
+                  margin:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
                   height: MediaQuery.of(context).size.height / 2,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
@@ -99,16 +101,14 @@ class _LogInState extends State<LogIn> {
                   child: Text(""),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      top: 60.0, left: 20.0, right: 20.0),
+                  margin: EdgeInsets.only(top: 60.0, left: 20.0, right: 20.0),
                   child: Column(
                     children: [
                       Material(
                         elevation: 5.0,
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
-                          padding: EdgeInsets.only(
-                              left: 20.0, right: 20.0),
+                          padding: EdgeInsets.only(left: 20.0, right: 20.0),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -134,14 +134,19 @@ class _LogInState extends State<LogIn> {
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Email';
+                                    } else if (!RegExp(
+                                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        .hasMatch(value)) {
+                                      return 'Please Enter a Valid Email';
                                     }
                                     return null;
                                   },
                                   decoration: InputDecoration(
                                       hintText: 'Email',
-                                      hintStyle: AppWidget.SemiBoldTextFieldStyle(),
-                                      prefixIcon: Icon(
-                                          Icons.email_outlined)),
+                                      hintStyle:
+                                      AppWidget.SemiBoldTextFieldStyle(),
+                                      prefixIcon:
+                                      Icon(Icons.email_outlined)),
                                 ),
                                 SizedBox(
                                   height: 30.0,
@@ -154,20 +159,36 @@ class _LogInState extends State<LogIn> {
                                     }
                                     return null;
                                   },
-                                  obscureText: true,
+                                  obscureText: _obscureText,
                                   decoration: InputDecoration(
-                                      hintText: 'Password',
-                                      hintStyle: AppWidget.SemiBoldTextFieldStyle(),
-                                      prefixIcon: Icon(
-                                          Icons.padding_outlined)),
+                                    hintText: 'Password',
+                                    hintStyle:
+                                    AppWidget.SemiBoldTextFieldStyle(),
+                                    prefixIcon: Icon(Icons.lock_outline),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        _obscureText
+                                            ? Icons.visibility_off
+                                            : Icons.visibility,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _obscureText = !_obscureText;
+                                        });
+                                      },
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 10.0,
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => ForgotPassword()));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ForgotPassword()));
                                   },
                                   child: Container(
                                     alignment: Alignment.topRight,
@@ -194,8 +215,8 @@ class _LogInState extends State<LogIn> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(20),
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 8.0),
+                                      padding:
+                                      EdgeInsets.symmetric(vertical: 8.0),
                                       width: 200.0,
                                       decoration: BoxDecoration(
                                         color: Color(0xffff5722),
@@ -227,8 +248,10 @@ class _LogInState extends State<LogIn> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => SignUp()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignUp()));
                         },
                         child: Text(
                           "Don't have an account? Sign up",

@@ -1,20 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthMethods {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  getCurrentUser() async {
-    return await auth.currentUser;
+  Future<User?> getCurrentUser() async {
+    return _auth.currentUser;
   }
 
-  Future SignOut() async {
-    await FirebaseAuth.instance.signOut();
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 
-  Future deleteuser() async {
-    User? user = await FirebaseAuth.instance.currentUser;
-    user?.delete();
+  Future<void> deleteUser() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      await user.delete();
+    }
   }
-
 }

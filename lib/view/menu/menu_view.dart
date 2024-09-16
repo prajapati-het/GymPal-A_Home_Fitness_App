@@ -5,6 +5,7 @@ import 'package:gympal/view/menu/yoga_view.dart';
 import '../../common/Color.dart';
 import '../../common_widget/menu_cell.dart';
 import '../../common_widget/plan_row.dart';
+import '../../profile/profile_view.dart';
 import '../exercise/exercise_view_2.dart';
 import '../home_view/home_view.dart';
 import '../meal_plan/meal_plan_view_dart.dart';
@@ -247,21 +248,29 @@ class _MenuViewState extends State<MenuView> {
                         horizontal: 25, vertical: 30),
                     child: Row(
                       children: [
-                        Container(
-                          width: 54,
-                          height: 54,
-                          decoration: BoxDecoration(
-                              color: AppColor.white,
-                              borderRadius: BorderRadius.circular(27)),
-                          alignment: Alignment.center,
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.asset(
-                                "assets/img/u1.png",
-                                width: 50,
-                                height: 50,
-                                fit: BoxFit.cover,
-                              )),
+                        InkWell(
+                          onTap:(){
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) => const Profile()));
+                        },
+                          child: Container(
+                            width: 54,
+                            height: 54,
+                            decoration: BoxDecoration(
+                                color: AppColor.white,
+                                borderRadius: BorderRadius.circular(27)),
+                            alignment: Alignment.center,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(25),
+                                child: Image.asset(
+                                  "assets/img/u1.png",
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
                         ),
                         const SizedBox(
                           width: 15,

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gympal/view/login/step1_view.dart';
 import 'package:gympal/view/menu/menu_view.dart';
 import 'package:random_string/random_string.dart';
 import '../../services/database.dart';
@@ -52,7 +53,7 @@ class _SignUpState extends State<SignUp> {
 
         if (mounted) {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MenuView()));
+              context, MaterialPageRoute(builder: (context) => Step1View()));
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
