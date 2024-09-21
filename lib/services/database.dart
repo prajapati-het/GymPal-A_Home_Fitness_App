@@ -78,14 +78,14 @@ class DatabaseMethods {
 
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
-          .where('email', isEqualTo: mail)
+          .where('Email', isEqualTo: mail)
           .limit(1)
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
         var doc = querySnapshot.docs.first;
-        String userId = doc.id;
-        String userName = doc.get('name');
+        String userId = doc.get('Id');
+        String userName = doc.get('Name');
 
         return {'id': userId, 'name': userName};
       } else {

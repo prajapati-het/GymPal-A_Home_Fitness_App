@@ -9,7 +9,10 @@ import '../../profile/profile_view.dart';
 import '../exercise/exercise_view_2.dart';
 import '../home_view/home_view.dart';
 import '../meal_plan/meal_plan_view_dart.dart';
+import '../running/running_view.dart';
 import '../schedule/schedule_view.dart';
+import '../settings/setting_view.dart';
+import '../tips/tips_view.dart';
 import '../weight/weight_view.dart';
 
 class MenuView extends StatefulWidget {
@@ -346,10 +349,10 @@ class _MenuViewState extends State<MenuView> {
                             builder: (context) => const ScheduleView()));
                     break;
                   case "7":
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const RunningView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RunningView()));
                     break;
                   case "8":
                     Navigator.push(
@@ -358,16 +361,16 @@ class _MenuViewState extends State<MenuView> {
                             builder: (context) => const ExerciseView2()));
                     break;
                   case "9":
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const TipsView()));
+                     Navigator.push(
+                         context,
+                         MaterialPageRoute(
+                             builder: (context) => const TipsView()));
                     break;
                   case "10":
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const SettingsView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SettingView()));
                     break;
                   default:
                 }

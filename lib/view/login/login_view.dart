@@ -33,7 +33,11 @@ class _LogInState extends State<LogIn> {
 
       await SharedPreferenceHelper().saveUserEmail(useremailcontroller.text);
 
+
+
       Map<String, String>? info = await DatabaseMethods().getUserInfoFromMail(email);
+
+      await SharedPreferenceHelper().saveUserName(info!['name']!);
 
       if (info != null) {
 
@@ -65,6 +69,35 @@ class _LogInState extends State<LogIn> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
               "Wrong Password Provided by User",
+              style: TextStyle(fontSize: 18.0, color: Colors.black),
+            )));
+      }
+      else if (e.code == 'invalid-email') {
+        // Handle invalid email case
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              "The email address is not valid.",
+              style: TextStyle(fontSize: 18.0, color: Colors.black),
+            )));
+      } else if (e.code == 'user-disabled') {
+        // Handle disabled user account case
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              "This user account has been disabled.",
+              style: TextStyle(fontSize: 18.0, color: Colors.black),
+            )));
+      } else if (e.code == 'expired-action-code') {
+        // Handle expired credential token
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              "The action code or link has expired.",
+              style: TextStyle(fontSize: 18.0, color: Colors.black),
+            )));
+      } else {
+        // Generic error handler
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              "An error occurred: ${e.message}",
               style: TextStyle(fontSize: 18.0, color: Colors.black),
             )));
       }
