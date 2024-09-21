@@ -14,33 +14,45 @@ class ConnectRow extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8.0),
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15), // Added horizontal padding for better alignment
         decoration: BoxDecoration(
-          color : tObj["color"],
+          color: tObj["color"],
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
-
           children: [
-            Image.asset(tObj["icon"],width: 30,height: 30),
-
+            ClipOval(
+              child: Container(
+                color: Colors.white, // Background color of the circle
+                padding: const EdgeInsets.all(5.0), // Padding around the icon
+                child: Image.asset(
+                  tObj["icon"],
+                  width: 50, // Increased size for better visibility
+                  height: 50,
+                ),
+              ),
+            ),
             const SizedBox(width: 15),
             Expanded(
               child: Text(
                 tObj["name"],
-                style:TextStyle(
-                    color: AppColor.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700
+                style: TextStyle(
+                  color: AppColor.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
-
             const SizedBox(width: 15),
-              Image.asset("assets/img/tick.png",
-                            width: 30,
-                            height: 30,
-                            color: isActive ? Colors.green : Colors.white)
+            Padding(
+              padding: const EdgeInsets.only(right: 5.0), // Padding around the tick icon
+              child: Image.asset(
+                "assets/img/tick.png",
+                width: 30, // Slightly increased tick icon size
+                height: 30,
+                color: isActive ? Colors.black : Colors.white,
+              ),
+            ),
           ],
         ),
       ),

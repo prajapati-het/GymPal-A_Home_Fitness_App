@@ -20,18 +20,18 @@ class _ConnectViewState extends State<ConnectView> {
   List connectArr = [
     {
       "name":"Connect To Facebook",
-      "icon":"assets/img/play.png",
-      "color":Colors.green,
+      "icon":"assets/img/facebook2.png",
+      "color":AppColor.primary,
     },
     {
       "name":"Connect To Twitter",
-      "icon":"assets/img/more.png",
-      "color":Colors.deepOrange,
+      "icon":"assets/img/twitter2.png",
+      "color":AppColor.primary,
     },
     {
       "name":"Connect To LinkedIn",
-      "icon":"assets/img/like.png",
-      "color":Colors.deepPurple,
+      "icon":"assets/img/linkedin2.png",
+      "color":AppColor.primary,
     },
 
   ];
