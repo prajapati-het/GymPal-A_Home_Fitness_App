@@ -5,6 +5,7 @@ import 'package:gympal/view/login/signup.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:random_string/random_string.dart';
+import '../common/Color.dart';
 import '../services/auth.dart';
 import '../services/shared_pref.dart';
 import '../view/login/login_view.dart';
@@ -20,7 +21,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   String? profile, name, email;
   final ImagePicker _picker = ImagePicker();
-  File? selectedImage;
+  File? selectedImage = null;
 
   Future<void> getImage(ImageSource source) async {
     var image = await _picker.pickImage(source: source);
@@ -109,6 +110,20 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:  AppBar(
+        backgroundColor: AppColor.white,
+        centerTitle: true,
+        elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset(
+              "assets/img/back.png",
+              width: 25,
+              height: 25,
+            )),
+      ),
       body: name==null? CircularProgressIndicator(): Container(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -335,7 +350,7 @@ class _ProfileState extends State<Profile> {
                 onTap: () async {
                   try {
                     await AuthMethods().deleteUser();
-                    // Navigate to Signup page after account deletion
+
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
