@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../common/Color.dart';
 import '../../common_widget/round_button.dart';
 import '../../common_widget/tab_button.dart';
+import '../../services/database.dart';
 import '../workout/workout_detail_view.dart';
 
 class MealPlanView extends StatefulWidget {
@@ -13,6 +15,7 @@ class MealPlanView extends StatefulWidget {
 
 class _MealPlanViewState extends State<MealPlanView> {
   int isActiveTab = 0;
+  Stream<QuerySnapshot>? fooditemStream;
 
   List planArr = [
     {
@@ -40,6 +43,21 @@ class _MealPlanViewState extends State<MealPlanView> {
       "subtitle": "Personalized workouts will help\nyou gain strength"
     },
   ];
+
+  ontheload() async {
+    try {
+      fooditemStream = await DatabaseMethods().getFoodItem('DietPlan');
+      setState(() {});
+    } catch (e) {
+      print("Error loading food items: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ontheload();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +115,6 @@ class _MealPlanViewState extends State<MealPlanView> {
                     },
                   ),
                 ),
-
               ],
             ),
           ),
@@ -136,24 +153,30 @@ class _MealPlanViewState extends State<MealPlanView> {
           ),
           Expanded(
             child: ListView.builder(
-                padding:
-                const EdgeInsets.symmetric( horizontal: 20),
-                itemCount: planArr.length,
-                itemBuilder: (context, index) {
-                  var wObj = planArr[index] as Map? ?? {};
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              itemCount: planArr.length + 1, // Adding 1 for StreamBuilder section
+              itemBuilder: (context, index) {
+                if (index < planArr.length) {
+                  var plan = planArr[index];
+                  String imageUrl = plan["image"];
+                  String name = plan["name"];
+                  String title = plan["title"];
+                  String subtitle = plan["subtitle"];
+
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     height: media.width * 0.5,
                     decoration: BoxDecoration(
-                        color: AppColor.gray,
-                        borderRadius: BorderRadius.circular(10)),
+                      color: AppColor.gray,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     clipBehavior: Clip.antiAlias,
                     child: Stack(
                       children: [
                         Image.asset(
-                          wObj["image"].toString(),
-                          width: media.width,
-                          height: media.width * 0.5,
+                          imageUrl,
+                          width: double.infinity,
+                          height: double.infinity,
                           fit: BoxFit.cover,
                         ),
                         Container(
@@ -166,98 +189,190 @@ class _MealPlanViewState extends State<MealPlanView> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 25, horizontal: 20),
+                          padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                wObj["title"],
+                                title,
                                 style: TextStyle(
-                                    color: AppColor.primary,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
+                                  color: AppColor.primary,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                               Text(
-                                wObj["name"],
+                                name,
                                 style: TextStyle(
-                                    color: AppColor.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700),
+                                  color: AppColor.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                               Text(
-                                wObj["subtitle"],
+                                subtitle,
                                 style: TextStyle(
-                                    color: AppColor.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
+                                  color: AppColor.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                               const Spacer(),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   SizedBox(
-                                      width: 100,
-                                      height: 25,
-                                      child: RoundButton(
-                                        title: "see more",
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                  const WorkoutDetailView()));
-                                        },
-                                      )),
+                                    width: 100,
+                                    height: 25,
+                                    child: RoundButton(
+                                      title: "see more",
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const WorkoutDetailView(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ],
                     ),
                   );
-                }),
+                } else {
+                  return StreamBuilder(
+                    stream: fooditemStream,
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return Center(child: Text("No data available"));
+                      }
+
+                      if (snapshot.hasError) {
+                        return Center(child: Text("An error occurred: ${snapshot.error}"));
+                      }
+
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          DocumentSnapshot ds = snapshot.data!.docs[index];
+                          String imageUrl = ds["Image"];
+                          String foodName = ds["Name"];
+                          String foodDetail = ds["Detail"];
+
+                          return Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            height: media.width * 0.5,
+                            decoration: BoxDecoration(
+                              color: AppColor.gray,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            clipBehavior: Clip.antiAlias,
+                            child: Stack(
+                              children: [
+                                Image.network(
+                                  imageUrl,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+                                ),
+                                Container(
+                                  width: media.width,
+                                  height: media.width * 0.5,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.5),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Diet Plan",
+                                        style: TextStyle(
+                                          color: AppColor.primary,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        foodName,
+                                        style: TextStyle(
+                                          color: AppColor.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      Text(
+                                        foodDetail,
+                                        style: TextStyle(
+                                          color: AppColor.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          SizedBox(
+                                            width: 100,
+                                            height: 25,
+                                            child: RoundButton(
+                                              title: "see more",
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => const WorkoutDetailView(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                }
+              },
+            ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 1,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                onTap: () {},
-                child: Image.asset("assets/img/menu_running.png",
-                    width: 25, height: 25),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Image.asset("assets/img/menu_meal_plan.png",
-                    width: 25, height: 25),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Image.asset("assets/img/menu_home.png",
-                    width: 25, height: 25),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Image.asset("assets/img/menu_weight.png",
-                    width: 25, height: 25),
-              ),
-              InkWell(
-                onTap: () {},
-                child:
-                Image.asset("assets/img/more.png", width: 25, height: 25),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

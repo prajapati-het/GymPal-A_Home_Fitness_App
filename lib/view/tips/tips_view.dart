@@ -16,10 +16,10 @@ class _TipsViewState extends State<TipsView> {
 List tipsArr = [
   {"name":"About Training"},
   {"name":"How to weight loss?"},
-  {"name":"Introducing about meal plan"},
-  {"name":"Water nad food"},
+  {"name":"Introducing about meal\n plan"},
+  {"name":"Water and food"},
   {"name":"Drink Water"},
-  {"name":"How many times a day to eat?"},
+  {"name":"How many times a day\n to eat?"},
   {"name":"Become Stronger"},
   {"name":"Shoes To Training"},
   {"name":"Appeal Tips"},

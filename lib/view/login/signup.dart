@@ -43,12 +43,14 @@ class _SignUpState extends State<SignUp> {
           "Name": namecontroller.text,
           "Email": mailcontroller.text,
           "Id": Id,
+          "Wallet": "0"
         };
 
         // Use await for async methods
         await DatabaseMethods().addUserDetail(addUserInfo, Id);
         await SharedPreferenceHelper().saveUserName(namecontroller.text);
         await SharedPreferenceHelper().saveUserEmail(mailcontroller.text);
+        await SharedPreferenceHelper().saveUserWallet('0');
         await SharedPreferenceHelper().saveUserId(Id);
 
         if (mounted) {

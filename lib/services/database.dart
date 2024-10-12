@@ -12,6 +12,28 @@ class DatabaseMethods {
         .set(userInfoMap);
   }
 
+  Future updateUserwallet(String id, String amount) async {
+    await SharedPreferenceHelper().saveUserWallet(amount);
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .update({"Wallet": amount});
+  }
+
+  Future addFoodItem(Map<String, dynamic> userInfoMap) async {
+    return await FirebaseFirestore.instance
+        .collection('DietPlan')
+        .add(userInfoMap);
+  }
+
+  Future<Stream<QuerySnapshot>> getFoodItem(String name) async {
+    return FirebaseFirestore.instance.collection(name).snapshots();
+  }
+
+  Future<Stream<QuerySnapshot>> getFoodCart(String id) async {
+    return FirebaseFirestore.instance.collection("users").doc(id).collection("Cart").snapshots();
+  }
+
   Future<String?> getUserName(String id) async {
     try {
       /*DocumentSnapshot userDoc = await FirebaseFirestore.instance
@@ -118,6 +140,27 @@ class DatabaseMethods {
       }
     } catch (e) {
       print('Error getting user name: $e');
+      return null;
+    }
+  }
+
+  Future<String?> getUserWallet(String id) async {
+    try {
+      /*DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(id)
+          .get();
+
+      if (userDoc.exists) {
+        return userDoc['Wallet']?.toString();
+      } else {
+        print('User does not exist. in getuserwallet');
+        return null;
+      }*/
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getString(SharedPreferenceHelper.userWalletKey);
+    } catch (e) {
+      print('Error getting user wallet: $e');
       return null;
     }
   }
